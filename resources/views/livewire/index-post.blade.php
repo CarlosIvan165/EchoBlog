@@ -9,7 +9,7 @@
                 Todas
             </button>
 
-            @foreach ($category as $categoria)
+            @foreach ($categories as $categoria)
                 <button
                     wire:click="$set('categoryId', {{ $categoria->id }})"
                     class="px-3 py-2 rounded shadow cursor-pointer hover:bg-indigo-700 transition

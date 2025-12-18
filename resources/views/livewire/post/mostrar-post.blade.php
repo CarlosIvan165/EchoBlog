@@ -26,31 +26,25 @@
         </div>
     </div>
     @auth
-        @if (auth()->user()->hasVerifiedEmail())
-            <div>
-                <p class="text-xl font-bold text-center mb-4">Agrega un nuevo comentario</p>
-                @if(session('mensaje'))
-                    <div class="bg-green-100 border-l-4 border-green-600 text-green-600 p-2 my-3">
-                        {{session('mensaje')}}
-                    </div>
-                @endif
-                <form method="POST" action="{{ route('comentario.store', ['post'=>$post, auth()->user()]) }}">
-                    @csrf
-                    <div class="mb-5">
-                        <label for="comentario" class="mb-2 block uppercase text-gray-500 font-bold">Añade un Comentario</label>
-                        <textarea name="comentario" id="comentario" placeholder="Agrega un Comentario" class="border p-3 w-full rounded-lg @error('titulo') border-red-500 @enderror"></textarea>
-                        @error('comentario')
-                            <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <input type="submit" value="Comentar" class="bg-sky-600 hover:bg-sky-700 transition-colors cursor-pointer uppercase font-bold w-full p-3 text-white rounded-b-lg">
-                </form>    
-            </div>
-        @else
-            <div class="mt-5 bg-gray-50 border border-dashed p-5 text-center">
-                <p>Verifica tu correo para Comentar.</p>
-            </div>
-        @endif
+        <div>
+            <p class="text-xl font-bold text-center mb-4">Agrega un nuevo comentario</p>
+            @if(session('mensaje'))
+                <div class="bg-green-100 border-l-4 border-green-600 text-green-600 p-2 my-3">
+                    {{session('mensaje')}}
+                </div>
+            @endif
+            <form method="POST" action="{{ route('comentario.store', ['post'=>$post, auth()->user()]) }}">
+                @csrf
+                <div class="mb-5">
+                    <label for="comentario" class="mb-2 block uppercase text-gray-500 font-bold">Añade un Comentario</label>
+                    <textarea name="comentario" id="comentario" placeholder="Agrega un Comentario" class="border p-3 w-full rounded-lg @error('titulo') border-red-500 @enderror"></textarea>
+                    @error('comentario')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                    @enderror
+                </div>
+                <input type="submit" value="Comentar" class="bg-sky-600 hover:bg-sky-700 transition-colors cursor-pointer uppercase font-bold w-full p-3 text-white rounded-b-lg">
+            </form>    
+        </div>
     @endauth
 
     <div class="bg-white shadow mt-5 mb-5 max-h-96 overflow-y-scroll">
