@@ -24,7 +24,7 @@ class NewPost extends Component
         'titulo' => 'required|string',
         'descripcion' => 'required',
         'category' => 'required',
-        'imagen' => 'required|image|max:2024',
+        'imagen' => 'required|image|mimes:jpg,jpeg,png,webp,avif|max:4096',
         'status' => 'required|in:0,1'
     ];
 
