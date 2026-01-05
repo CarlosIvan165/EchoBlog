@@ -41,6 +41,6 @@
         @empty
             <p>No hay posts registrados</p>
         @endforelse
-        {{ $posts->links() }}
     </div>
+    {{ $posts->links() }}
 </div>
