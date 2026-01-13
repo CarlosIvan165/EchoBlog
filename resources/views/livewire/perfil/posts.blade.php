@@ -1,5 +1,5 @@
-<div class="justify-center">
-    <div class="grid grid-cols-1 md:grid-cols-2">
+<div>
+    <div class="px-8 grid grid-cols-2">
         @forelse ($posts as $post)
             <div class="p-3 bg-white border-b border-gray-200 md:flex md:items-center">
                 <div class="flex flex-col w-7xl">
@@ -10,12 +10,12 @@
                     </div>
                     <div class="w-full md:w-90">
                         <p class="text-lg font-semibold truncate max-w-md">{{ $post->titulo }}</p>
-                        <a href="{{ route('perfil.index', $post->user) }}"> <strong>Autor:</strong> {{ $post->user->name }}</a>
+                        <p class="text-gray-500 text-sm"><strong>Autor:</strong> {{ $post->user->name }}</p>
                         <p class="text-gray-600 line-clamp-2 mt-1">{{ $post->descripcion }}</p>
                     </div>
                     <div class="flex justify-between">
                         <div class="my-2">
-                            <a href="{{ route('posts.show', $post->id) }}" class="bg-blue-600 py-2 px-4 rounded-lg text-white text-sm font-bold text-center cursor-pointer">Ver Post</a>
+                            <a href="{{ route('posts.show', $post->id) }}" class="bg-blue-600 py-2 px-4 rounded-lg text-white text-sm font-bold text-center cursor-pointer">Leer Publicación</a>
                         </div>
                         <div class="my-2 flex">
                             @auth

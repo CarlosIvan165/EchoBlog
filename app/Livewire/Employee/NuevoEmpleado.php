@@ -13,6 +13,7 @@ class NuevoEmpleado extends Component
 {
 
     public $name;
+    public $username;
     public $email;
     public $password;
     public $password_confirmation;
@@ -21,6 +22,7 @@ class NuevoEmpleado extends Component
     {
         return [
             'name' => 'required',
+            'username' => 'max:255',
             'email' => 'required|email',
             'password' => ['required', 'confirmed', Password::defaults()],
         ];
@@ -33,6 +35,7 @@ class NuevoEmpleado extends Component
 
         $user = User::create([
             'name'=>$datos['name'],
+            'username'=>$datos['username'],
             'email'=>$datos['email'],
             'password'=> Hash::make($datos['password']),
             'role' => User::ROLE_AUTORES,

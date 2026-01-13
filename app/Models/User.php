@@ -27,10 +27,19 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
-        'role'
+        'role',
+        'avatar',
+        'bio',
+        'portada',
     ];
+
+    public function getRouteKeyName()
+    {
+        return $this->username ?: 'id';
+    }
 
     /**
      * The attributes that should be hidden for serialization.

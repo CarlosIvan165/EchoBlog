@@ -26,15 +26,39 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        // Campos base de Breeze
+        $user->fill($request->safe()->only([
+            'name',
+            'username',
+            'email',
+        ]));
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        $request->user()->save();
+        // Avatar
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
+        }
+        
+        if ($request->hasFile('portada')) {
+            $path = $request->file('portada')->store('portadas', 'public');
+            $user->portada = $path;
+        }
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        $user->username = $request->username;
+
+        // Bio
+        $user->bio = $request->bio;
+
+        $user->save();
+
+        return Redirect::route('perfil.index', Auth::user())
+            ->with('status', 'profile-updated');
     }
 
     /**

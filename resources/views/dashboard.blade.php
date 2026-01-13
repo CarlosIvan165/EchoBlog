@@ -13,7 +13,7 @@
                         <nav class="flex">
                             <div class="">
                                 <h1 class="font-bold text-2xl">Acessos Rapidos:</h1>
-                                <div class="grid grid-cols-2 gap-2 md:grid-cols-3 text-gray-900 ">
+                                <div class="grid grid-cols-2 gap-2 md:grid-cols-3">
                                     @livewire('post.new-post')
                                     @livewire('employee.nuevo-empleado')
                                     @livewire('category.nueva-category')

@@ -75,9 +75,12 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('Perfil') }}
-                            </x-dropdown-link>
+                            @canany(['admin', 'autor'])
+                                <x-dropdown-link :href="route('perfil.index', Auth::user()->name)">
+                                    {{ __('Perfil ') }}
+                                </x-dropdown-link>    
+                            @endcanany
+                            
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
@@ -144,7 +147,7 @@
 
                 <div class="mt-3 space-y-1">
                     <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
-                        {{ __('Perfil') }}
+                        {{ __('Editar Perfil') }}
                     </x-responsive-nav-link>
 
                     <!-- Authentication -->

@@ -8,6 +8,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\PerfilController;
 use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function () {
@@ -17,6 +18,9 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'can:dashboard-access'])->name('dashboard');
+
+/* Perfil publico */
+Route::get('/perfil/{user:name}', [PerfilController::class, 'show'])->middleware(['auth'])->name('perfil.index');
 
 /* posts */
 Route::get('/post/create', [PostsController::class, 'create'])->middleware(['auth'])->name('posts.index');

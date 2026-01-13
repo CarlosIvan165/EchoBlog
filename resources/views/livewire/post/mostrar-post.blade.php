@@ -13,61 +13,112 @@
         </div>
     </nav>
     
-    <div class="mb-5">
-        <h3 class="text-3xl text-gray-800 my-3 ">Titulo: <span class="font-bold">{{ $post->titulo}}</span></h3>
-    </div>
-    
-    <div class="md:grid md:grid-cols-6 gap-3">
-        <div class="md:col-span-4">
-            <p class="whitespace-pre-wrap">{{$post->descripcion}}</p>
-        </div>
-        <div class="md:col-span-2">
-            <img class="w-full" src="{{ asset('storage/post/'.$post->imagen)}}" alt="{{'imagen cavantes'. $post->titulo}}">
-        </div>
-    </div>
-    @auth
+    <div class="grid gap-3">
         <div>
-            <p class="text-xl font-bold text-center mb-4">Agrega un nuevo comentario</p>
-            @if(session('mensaje'))
-                <div class="bg-green-100 border-l-4 border-green-600 text-green-600 p-2 my-3">
-                    {{session('mensaje')}}
-                </div>
-            @endif
-            <form method="POST" action="{{ route('comentario.store', ['post'=>$post, auth()->user()]) }}">
-                @csrf
-                <div class="mb-5">
-                    <label for="comentario" class="mb-2 block uppercase text-gray-500 font-bold">Añade un Comentario</label>
-                    <textarea name="comentario" id="comentario" placeholder="Agrega un Comentario" class="border p-3 w-full rounded-lg @error('titulo') border-red-500 @enderror"></textarea>
-                    @error('comentario')
-                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
-                    @enderror
-                </div>
-                <input type="submit" value="Comentar" class="bg-sky-600 hover:bg-sky-700 transition-colors cursor-pointer uppercase font-bold w-full p-3 text-white rounded-b-lg">
-            </form>    
+            <img class="px-20 w-full" src="{{ asset('storage/post/'.$post->imagen)}}" alt="{{'imagen cavantes'. $post->titulo}}">
         </div>
-    @endauth
 
-    <div class="bg-white shadow mt-5 mb-5 max-h-96 overflow-y-scroll">
-        @forelse ($comentarios as $comentario)
-        <div class="p-5 border-gray-300 border-b">
-            <p class="font-bold">{{ $comentario->comentario }}</p>
-            <p class="text-sm text-gray-600 mt-1">
-                {{ $comentario->user->name }}
-                ·
-                {{ $comentario->created_at->diffForHumans() }}
-            </p>
+        <div>
+            <div class="mb-5">
+                <h3 class="text-3xl text-gray-800 my-3 "><span class="font-bold">{{ $post->titulo}}</span></h3>
+                <div class="flex gap-2.5 items-center justify-between">
+                    <div class="flex gap-2.5 items-center">
+                        <img class="w-[50px] h-[50px] rounded-full mt-2 border border-gray-900" src="{{ asset('storage/'.$post->user->avatar)}}" alt="{{'imagen de avatar'}}">
+                        <div>
+                            <p>{{ $post->user->name }}</p>
+                            <p class="text-gray-600">{{ $post->created_at->diffForHumans() }}</p>
+                        </div>   
+                    </div>
+                    <div class="my-5 flex">
+                        @auth
+                            <livewire:like-post :post="$post" />
+                            <livewire:comentario-post :post="$post" />
+                        @endauth
+                    </div>                  
+                </div>
+            </div>
+            <hr class="my-6 border-gray-500">
+
+            <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr]">
+                <div class="">
+                    <p class="whitespace-pre-wrap">{{$post->descripcion}}</p>
+                </div>
+                <div class="p-10">
+                    <div class="border-gray-400">
+                        <div class="">
+                            <h1 class="text-xl inline-flex text-center pb-3 font-medium leading-5">Acerca Del Autor</h1>
+                        </div>
+                        <div class="flex gap-2.5 items-center">
+                            <img class="w-[50px] h-[50px] rounded-full mt-2 border border-gray-900" src="{{ asset('storage/'.$post->user->avatar)}}" alt="{{'imagen de avatar'}}">
+                            <div>
+                                <p>{{ $post->user->name }}</p>
+                                <p class="text-gray-600">{{ $post->created_at->diffForHumans() }}</p>
+                            </div>   
+                        </div>
+                        <div class="p-3">
+                            <p>{{ $post->user->bio }}</p>
+                        </div>
+                        <hr class="my-2 border-gray-500">                            
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <h1 class="text-xl inline-flex text-center pb-3 font-medium leading-5">Mas Publiaciones Del Autor</h1>
+                        </div>
+                        
+                        @livewire('perfil.posts-destacados', [
+                            'user' => $post->user
+                        ])
+                    </div>
+                    <hr class="my-2 border-gray-500">
+                    <div>
+                        @auth
+                            <div>
+                                <p class="text-xl font-bold text-center mb-4">Agrega un nuevo comentario</p>
+                                @if(session('mensaje'))
+                                    <div class="bg-green-100 border-l-4 border-green-600 text-green-600 p-2 my-3">
+                                        {{session('mensaje')}}
+                                    </div>
+                                @endif
+                                <form method="POST" action="{{ route('comentario.store', ['post'=>$post, auth()->user()]) }}">
+                                    @csrf
+                                    <div class="mb-5">
+                                        <label for="comentario" class="mb-2 block uppercase text-gray-500 font-bold">Añade un Comentario</label>
+                                        <textarea name="comentario" id="comentario" placeholder="Agrega un Comentario" class="border p-3 w-full rounded-lg @error('titulo') border-red-500 @enderror"></textarea>
+                                        @error('comentario')
+                                            <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <input type="submit" value="Comentar" class="bg-sky-600 hover:bg-sky-700 transition-colors cursor-pointer uppercase font-bold w-full p-3 text-white rounded-b-lg">
+                                </form>    
+                            </div>
+                        @endauth
+
+                        <div class="bg-white shadow mt-5 mb-5 max-h-96 overflow-y-scroll">
+                            @forelse ($comentarios as $comentario)
+                            <div class="p-5 border-gray-300 border-b">
+                                <p class="font-bold">{{ $comentario->comentario }}</p>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    {{ $comentario->user->name }}
+                                    ·
+                                    {{ $comentario->created_at->diffForHumans() }}
+                                </p>
+                            </div>
+                            @empty
+                                <p class="text-gray-500">Aún no hay comentarios.</p>
+                            @endforelse
+                        </div>
+                        
+                        @guest
+                            <div class="mt-5 bg-gray-50 border border-dashed p-5 text-center">
+                                <p>
+                                    ¿Deseas coemntar en este post?? <a href="{{ route('register')}}" class="font-bold text-indigo-600">Obten una cuenta y podras comentar lo que desees</a>
+                                </p>
+                            </div>
+                        @endguest
+                    </div>
+                </div>
+            </div>
+            
         </div>
-        @empty
-            <p class="text-gray-500">Aún no hay comentarios.</p>
-        @endforelse
     </div>
-    
-    @guest
-        <div class="mt-5 bg-gray-50 border border-dashed p-5 text-center">
-            <p>
-                ¿Deseas coemntar en este post?? <a href="{{ route('register')}}" class="font-bold text-indigo-600">Obten una cuenta y podras comentar lo que desees</a>
-            </p>
-        </div>
-    @endguest
-    
 </div>

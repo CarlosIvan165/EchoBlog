@@ -23,7 +23,6 @@ class IndexPost extends Component
                 )
                 ->orderBy('created_at', 'desc')
                 ->paginate(10),
-            'category' => Category::all(),
         ]);
     }
 }

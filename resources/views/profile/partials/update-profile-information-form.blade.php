@@ -18,9 +18,52 @@
         @method('patch')
 
         <div>
+            <div class="mt-4">
+                <x-input-label for="avatar" value="Foto de perfil" />
+                <input type="file" name="avatar" class="mt-1 block w-full">
+            </div>
+
+            @if(Auth::user()->avatar)
+                <img src="{{ asset('storage/' . Auth::user()->avatar) }}" class="w-24 h-24 rounded-full mt-2">
+            @endif
+
+            <div class="mt-4">
+                <x-input-label for="portada" value="Foto de portada" />
+                <input type="file" name="portada" class="mt-1 block w-full">
+            </div>
+
+            @if(Auth::user()->portada)
+                <img src="{{ asset('storage/' . Auth::user()->portada) }}" class="w-64 h-32 mt-2">
+            @endif
+        </div>
+        
+
+        <div class="mt-4">
+            <x-input-label for="bio" value="Descripción" />
+            <textarea name="bio"
+                    class="mt-1 block w-full h-32"
+                    maxlength="320">{{ old('bio', Auth::user()->bio) }}</textarea>
+        </div>
+
+        <div>
             <x-input-label for="name" :value="__('Nombre')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
+        </div>
+
+        <div>
+            <x-input-label for="username" value="Nombre de usuario" />
+            <x-text-input
+                id="username"
+                name="username"
+                type="text"
+                class="mt-1 block w-full"
+                :value="old('username', $user->username)"
+                required
+                autofocus 
+                autocomplete="name"
+            />
+            <x-input-error class="mt-2" :messages="$errors->get('username')" />
         </div>
 
         <div>

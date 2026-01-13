@@ -24,6 +24,20 @@
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
 
+                    <div>
+                        <x-input-label for="username" value="Nombre de usuario" />
+                        <x-text-input
+                            id="username"
+                            name="username"
+                            type="text"
+                            class="mt-1 block w-full"
+                            required
+                            autofocus 
+                            autocomplete="name"
+                        />
+                        <x-input-error class="mt-2" :messages="$errors->get('username')" />
+                    </div>
+
                     <!-- Email Address -->
                     <div class="mt-4">
                         <x-input-label for="email" :value="__('Email')" />

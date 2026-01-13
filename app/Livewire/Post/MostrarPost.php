@@ -2,17 +2,20 @@
 
 namespace App\Livewire\Post;
 
-use App\Models\Comentario;
+use App\Models\User;
 use Livewire\Component;
+use App\Models\Comentario;
 
 class MostrarPost extends Component
 {
     public $post;
     public $postId;
+    public $user;
 
-    public function mount($postId)
+    public function mount($postId, User $user)
     {
         $this->postId = $postId;
+        $this->user = $user;
     }
 
     public function render()
