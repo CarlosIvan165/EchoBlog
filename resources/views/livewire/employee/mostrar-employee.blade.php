@@ -1,5 +1,5 @@
-<div>
-    <div class="grid grid-cols-1 gap-1 justify-center p-5">
+<div class="overflow-y-scroll h-[350px]">
+    <div class="grid grid-cols-1 gap-1 justify-center p-2">
         @forelse ($users as $user)
         <div class="p-6 bg-white border-b border-gray-200 md:flex md:justify-between md:items-center">
             <div class="flex flex-col">

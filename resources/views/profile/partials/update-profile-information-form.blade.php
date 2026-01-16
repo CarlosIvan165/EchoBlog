@@ -1,6 +1,7 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
+        <a class="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition589*" href="{{ route('perfil.index', Auth::user()->name) }}">Regresar al perfil</a>
+        <h2 class="mt-1 text-lg font-medium text-gray-900">
             {{ __('Informacion de Perfil') }}
         </h2>
 

@@ -4,8 +4,10 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    @livewire('nav-route')
+                <div>
+                    <a href="{{ route('index') }}">
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                    </a>
                 </div>
 
                 @canany(['admin', 'autor', 'user'])
@@ -18,29 +20,18 @@
                 @canany('admin')
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 lg:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <x-nav-link :href="route('dashboard.admin')" :active="request()->routeIs('dashboard.admin')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     </div>                    
                 @endcanany
-                @can('admin')
+                @canany('autor')
+                    <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 lg:flex">
-                        <x-nav-link :href="route('employees.index')" :active="request()->routeIs('employees.index')">
-                            {{ __('Autores') }}
+                        <x-nav-link :href="route('dashboard.autor')" :active="request()->routeIs('dashboard.admin')">
+                            {{ __('Dashboard') }}
                         </x-nav-link>
-                    </div>
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 lg:flex">
-                        <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
-                            {{ __('Categorias') }}
-                        </x-nav-link>
-                    </div>
-                @endcan
-                @canany(['admin', 'autor'])
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 lg:flex text-black">
-                        <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
-                            {{ __('Post') }}
-                        </x-nav-link>
-                    </div>
+                    </div>                    
                 @endcanany
             </div>
 
@@ -117,22 +108,18 @@
                     {{ __('Inicio') }}
                 </x-responsive-nav-link>
             @endcanany
-            @canany(['admin', 'autor'])
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            @can('admin')
+                <x-responsive-nav-link :href="route('dashboard.admin')" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
-            @endcanany
-            @can('admin')
-                <x-responsive-nav-link :href="route('employees.index')" :active="request()->routeIs('employees.index')">
-                    {{ __('Autores') }}
-                </x-responsive-nav-link>
                 
-                <x-responsive-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
-                    {{ __('Categorias') }}
+                <x-responsive-nav-link :href="route('perfil.index', Auth::user()->name)" :active="request()->routeIs('perfil.index')">
+                    {{ __('Perfil') }}
                 </x-responsive-nav-link>
-
-                <x-responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
-                    {{ __('Post') }}
+            @endcan
+            @can('autor')
+                <x-responsive-nav-link :href="route('perfil.index', Auth::user()->name)" :active="request()->routeIs('perfil.index')">
+                    {{ __('Perfil') }}
                 </x-responsive-nav-link>
             @endcan
         </div>

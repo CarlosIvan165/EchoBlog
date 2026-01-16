@@ -6,7 +6,7 @@
                     <!-- PORTADA -->
                     <div class="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden rounded-b-xl">
                         @if(Auth::user()->portada)
-                            <img src="{{ asset('storage/' . Auth::user()->portada) }}" class="w-full h-full object-cover mt-2">
+                            <img src="{{ asset('storage/' . $user->portada) }}" class="w-full h-full object-cover mt-2">
                         @endif
                         <div class="absolute inset-0 bg-black/30"></div>
                     </div>
@@ -19,17 +19,50 @@
 
                             <div class="flex-1 flex flex-col md:flex-row md:items-end md:justify-between">
 
-                                <div>
-                                    <h2 class="text-2xl font-bold">{{ $user->name }}</h2>
-                                    @if($user->username)
-                                        <p class="text-gray-500">{{ '@' . $user->username }}</p>
-                                    @endif
+                                <div class="flex gap-10">
+                                    <div>
+                                        <h2 class="text-2xl font-bold">{{ $user->name }}</h2>
+                                        @if($user->username)
+                                            <p class="text-gray-500">{{ '@' . $user->username }}</p>
+                                        @endif
+                                    </div>
                                     
+                                    <div class="flex items-center gap-3">
+                                        <p class="text-gray-800 text-sm mb-3 font-bold">
+                                            {{ $user->followers()->count()}} <span class="font-normal">@choice('seguidor|seguidores', $user->followers()->count())</span>
+                                        </p>
+                                        <p class="text-gray-800 text-sm mb-3 font-bold">
+                                            {{ $user->followings()->count()}} <span class="font-normal">Siguiendo</span>
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <div class="grid content-center">
+
+                                    @auth
+                                            @if ($user->id !== auth()->user()->id)
+                                                @if (!$user->siguiendo(auth()->user()))
+                                                    <form action="{{ route('users.follow', $user) }}" method="POST">
+                                                        @csrf
+                                                        <input type="submit" class="bg-indigo-500 text-white uppercase rounded-lg px-4 py-2 text-xs font-bold cursor-pointer" value="Seguir">
+                                                    </form>  
+                                                @else
+                                                <div class="flex gap-2 items-center">
+                                                    <form action="{{ route('users.unfollow', $user) }}" method="POST">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <input type="submit" class="bg-red-500 text-white uppercase rounded-lg px-4 py-2 text-xs font-bold cursor-pointer" value="Dejar de seguir">
+                                                    </form>
+                                                </div>                            
+                                                @endif                            
+                                            @endif
+                                        
+                                    @endauth
+
                                     @canany(['autor', 'admin'])
-                                        <a class="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition" href="{{route('profile.edit')}}">Editar perfil</a>    
+                                        @if ($user->id === auth()->user()->id)
+                                            <a class="mt-2 text-center px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition" href="{{route('profile.edit')}}">Editar perfil</a>
+                                        @endif                                            
                                     @endcanany
                                     
                                     @can('user')
@@ -53,7 +86,7 @@
 
                         <nav class="bg-white border-b border-gray-300">
                             <div class="max-w-xl mx-auto px-4 sm:px-10 lg:px-8">
-                                <div class="hidden space-x-8 sm:-my-px sm:ms-10 lg:flex">
+                                <div class="justify-center space-x-8 flex">
                                     <button @click="tab = 'posts'"
                                         :class="tab === 'posts'
                                             ? 'border-b-2 border-black text-black'
@@ -74,21 +107,31 @@
 
                         <div class="mt-6">
                             <div x-show="tab === 'posts'">
-                                <div class="grid grid-cols-3">
-                                    <div class="col-span-2">
+                                <div class="xl:hidden mb-6">
+                                    @livewire('perfil.posts-destacados', [
+                                        'user' => $user,
+                                        'layout' => 'horizontal'
+                                    ])
+                                </div>
+                                <div class="grid grid-cols-1 xl:grid-cols-[3fr_1fr] xl:gap-5 items-start">
+                                    <div class="">
+                                        <p class="text-xl font-bold text-center mb-4">Publicaciones Recientes</p>
                                         @livewire('perfil.posts', [
                                             'user' => $user
                                         ])
                                     </div>
                                     <div>
-                                        <div>
-                                            <div class="border-black">
-                                                <h1 class="text-xl inline-flex items-center pb-3 font-medium leading-5">Post destacados</h1>
-                                            </div>
+                                        <div class="hidden xl:block">
+                                            @livewire('perfil.posts-destacados', [
+                                                'user' => $user,
+                                                'layout' => 'vertical'
+                                            ])
+                                        </div>
+                                        {{-- <div>
                                             @livewire('perfil.posts-destacados', [
                                                 'user' => $user
                                             ])
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +145,6 @@
                                         @livewire('index.autores-destacados')
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>

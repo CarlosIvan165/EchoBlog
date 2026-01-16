@@ -1,4 +1,4 @@
-<div class="p-10">
+<div class="p-5">
     <nav class="flex gap-3">
         <div class="p-6 text-gray-900">
             @guest
@@ -7,28 +7,53 @@
             @can('user')
                 <a class="p-3 rounded-lg bg-indigo-500 text-white shadow-xl cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105" href="{{ route('index') }}">Regresar</a>
             @endcan
-            @canany(['admin', 'autor'])
-                <a class="p-3 rounded-lg bg-indigo-500 text-white shadow-xl cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105" href="{{ route('posts.index') }}">Regresar</a>
-            @endcanany
+            @can('admin')
+                <a class="p-3 rounded-lg bg-indigo-500 text-white shadow-xl cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105" href="{{ route('index') }}">Regresar</a>
+                <a class="p-3 rounded-lg bg-indigo-500 text-white shadow-xl cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105" href="{{ route('dashboard.admin') }}">Regresar al panel</a>
+            @endcan
+            @can('autor')
+                <a class="p-3 rounded-lg bg-indigo-500 text-white shadow-xl cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105" href="{{ route('index') }}">Regresar</a>
+                <a class="p-3 rounded-lg bg-indigo-500 text-white shadow-xl cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105" href="{{ route('dashboard.admin') }}">Regresar al panel</a>
+            @endcan
         </div>
     </nav>
     
     <div class="grid gap-3">
-        <div>
-            <img class="px-20 w-full" src="{{ asset('storage/post/'.$post->imagen)}}" alt="{{'imagen cavantes'. $post->titulo}}">
+
+        <div class="w-full mx-auto">
+            <div class="relative w-full h-[260px] sm:h-[320px] md:h-[380px] lg:h-[460px] overflow-hidden rounded-b-2xl">
+
+                <!-- Imagen -->
+                <img
+                    src="{{ asset('storage/post/'.$post->imagen) }}"
+                    alt="{{ $post->titulo }}"
+                    class="absolute inset-0 w-full h-full object-cover object-[50%_15%] transition-transform duration-700 scale-105"
+                >
+
+                <!-- Overlay degradado -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
+
+                <div class="absolute bottom-6 left-6 right-6 text-white">
+                    <h1 class="text-2xl md:text-4xl font-bold leading-tight">
+                        {{ $post->titulo }}
+                    </h1>
+                </div>
+            </div>
         </div>
 
         <div>
             <div class="mb-5">
-                <h3 class="text-3xl text-gray-800 my-3 "><span class="font-bold">{{ $post->titulo}}</span></h3>
                 <div class="flex gap-2.5 items-center justify-between">
-                    <div class="flex gap-2.5 items-center">
-                        <img class="w-[50px] h-[50px] rounded-full mt-2 border border-gray-900" src="{{ asset('storage/'.$post->user->avatar)}}" alt="{{'imagen de avatar'}}">
-                        <div>
-                            <p>{{ $post->user->name }}</p>
-                            <p class="text-gray-600">{{ $post->created_at->diffForHumans() }}</p>
-                        </div>   
-                    </div>
+                    <a href="{{ route('perfil.index', $post->user) }}">
+                        <div class="flex gap-2.5 items-center">
+                            <img class="w-[70px] h-[70px] rounded-full mt-2 border border-gray-900" src="{{ asset('storage/'.$post->user->avatar)}}" alt="{{'imagen de avatar'}}">
+                            <div>
+                                <p class="font-bold text-lg">{{ $post->user->name }}</p>
+                                <p class="text-gray-600">{{ $post->created_at->diffForHumans() }}</p>
+                            </div>   
+                        </div>
+                    </a>
+                    
                     <div class="my-5 flex">
                         @auth
                             <livewire:like-post :post="$post" />
@@ -39,12 +64,12 @@
             </div>
             <hr class="my-6 border-gray-500">
 
-            <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr]">
+            <div class="grid grid-cols-1 xl:grid-cols-[2fr_1fr]">
                 <div class="">
-                    <p class="whitespace-pre-wrap">{{$post->descripcion}}</p>
+                    <p class="whitespace-pre-wrap text-gray-700 leading-7 text-[17px]">{{ $post->descripcion }}</p>
                 </div>
-                <div class="p-10">
-                    <div class="border-gray-400">
+                <div class="p-5">
+                    <div class="border-gray-400 hidden xl:block">
                         <div class="">
                             <h1 class="text-xl inline-flex text-center pb-3 font-medium leading-5">Acerca Del Autor</h1>
                         </div>
@@ -60,17 +85,25 @@
                         </div>
                         <hr class="my-2 border-gray-500">                            
                     </div>
-                    <div class="">
+                    <div class="hidden lg:block">
                         <div class="">
                             <h1 class="text-xl inline-flex text-center pb-3 font-medium leading-5">Mas Publiaciones Del Autor</h1>
                         </div>
-                        
-                        @livewire('perfil.posts-destacados', [
-                            'user' => $post->user
-                        ])
+                        <div class="hidden xl:block">
+                            @livewire('perfil.posts-destacados', [
+                                'user' => $post->user,
+                                'layout' => 'vertical'
+                            ])
+                        </div>                        
                     </div>
                     <hr class="my-2 border-gray-500">
                     <div>
+                        <div class="xl:hidden mb-6">
+                            @livewire('perfil.posts-destacados', [
+                                'user' => $post->user,
+                                'layout' => 'horizontal'
+                            ])
+                        </div>
                         @auth
                             <div>
                                 <p class="text-xl font-bold text-center mb-4">Agrega un nuevo comentario</p>
@@ -111,7 +144,7 @@
                         @guest
                             <div class="mt-5 bg-gray-50 border border-dashed p-5 text-center">
                                 <p>
-                                    ¿Deseas coemntar en este post?? <a href="{{ route('register')}}" class="font-bold text-indigo-600">Obten una cuenta y podras comentar lo que desees</a>
+                                    ¿Deseas comentar en este post?? <a href="{{ route('register')}}" class="font-bold text-indigo-600">Obten una cuenta y podras comentar lo que desees</a>
                                 </p>
                             </div>
                         @endguest

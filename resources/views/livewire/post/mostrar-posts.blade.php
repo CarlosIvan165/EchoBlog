@@ -1,9 +1,9 @@
-<div>
-    <div class="grid grid-cols-1 gap-1 justify-center p-5">
+<div class="overflow-y-scroll h-[500px]">
+    <div class="grid grid-cols-1 gap-1 justify-center p-2">
         @forelse ($posts as $post)
         <div class="p-3 bg-white border-b border-gray-200 md:flex md:justify-between md:items-center">
             <div class="flex flex-col">
-                <p class="truncate w-96"><strong>Titulo del Post:</strong> {{ $post->titulo }}</p>
+                <p class="text-sm font-semibold leading-snug line-clamp-2 group-hover:underline"><strong>Titulo del Post:</strong> {{ $post->titulo }}</p>
                 @can('admin')
                     <p class="text-gray-500"><strong>Autor:</strong> {{ $post->user->name }}</p>    
                 @endcan                                                
@@ -13,7 +13,7 @@
             <div class="flex flex-col md:flex-row items-stretch gap-3 mt-3 md:mt-0">
                 <a href="{{ route('posts.edit', $post->id)}}" class="bg-blue-600 py-2 px-4 rounded-lg text-white text-sm font-bold text-center cursor-pointer">Editar</a>
                 <a href="{{ route('posts.show', $post->id, )}}" class="bg-green-600 py-2 px-4 rounded-lg text-white text-sm font-bold text-center cursor-pointer">Ver Post</a>
-                <button wire:click="$dispatch('mostrarAlerta', {{ $post->id }})" class="bg-red-600 py-2 px-4 rounded-lg text-sm text-white font-bold text-center">
+                <button wire:click="$dispatch('mostrarAlerta2', {{ $post->id }})" class="bg-red-600 py-2 px-4 rounded-lg text-sm text-white font-bold text-center">
                     Eliminar
                 </button>
             </div>
@@ -31,7 +31,7 @@
 
     <script>
         document.addEventListener('livewire:initialized', () => { 
-            Livewire.on('mostrarAlerta', (postId) => {
+            Livewire.on('mostrarAlerta2', (postId) => {
                 Swal.fire({
                         title: 'Quieres eliminar este post?',
                         text: "El Post Se Eliminara y No Podra Recuperarse",

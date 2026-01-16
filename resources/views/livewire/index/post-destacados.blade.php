@@ -1,4 +1,4 @@
-<div class="">
+<div class="p-5">
     @if ($layout === 'horizontal')
         <div>
             <p class="text-xl font-bold text-center mb-4">Publicaciones Destacadas</p>
@@ -81,5 +81,4 @@
             </div>
         </div>
     @endif
-    
 </div>

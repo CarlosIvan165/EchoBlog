@@ -1,5 +1,5 @@
-<div>
-    <div class="grid grid-cols-1 gap-1 justify-center p-5">
+<div class="overflow-y-scroll h-[350px]">
+    <div class="grid grid-cols-1 gap-1 justify-center p-2">
         @forelse ($categories as $categorie)
         <div class="p-6 bg-white border-b border-gray-200 md:flex md:justify-between md:items-center">
             <div class="flex flex-col">
@@ -8,7 +8,7 @@
                 <p><strong>Categoria Creada El Dia:</strong> {{$categorie->created_at->format('d/m/Y')}}</p>
             </div>
             <div class="flex flex-col md:flex-row items-stretch gap-3 mt-3 md:mt-0">
-                <a href="{{ route('employees.edit', $categorie->id)}}" class="bg-blue-800 py-2 px-4 rounded-lg text-white text-xs font-bold text-center cursor-pointer">Editar</a>
+                <a href="{{ route('edit-category.edit', $categorie->id)}}" class="bg-blue-800 py-2 px-4 rounded-lg text-white text-xs font-bold text-center cursor-pointer">Editar</a>
                 <button wire:click="$dispatch('mostrarAlerta', {{ $categorie->id }})" class="bg-red-600 py-2 px-4 rounded-lg text-white text-xs font-bold text-center">Eliminar</button>
             </div>
         </div>

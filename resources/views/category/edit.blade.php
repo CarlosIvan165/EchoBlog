@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edicion de Post') }}
+            {{ __('Edicion de Categoria') }}
         </h2>
     </x-slot>
 
@@ -16,18 +16,19 @@
                             @endcan
                             @can('autor')
                                 
-                            @endcan                            
+                            @endcan 
                         </div>
                     </nav>
                     @livewire('mostrar-alerta')
-                    <h1 class="text-2xl font-bold text-center mt-10">Editar Vacante: {{ $post->titulo}}</h1>
+                    <h1 class="text-2xl font-bold text-center mt-10">Editar Autor: {{ $category->name}}</h1>
                     <div class="md:justify-center p-5">
-                        <livewire:post.editar-post 
-                            :post="$post"
+                        <livewire:category.editar-categoria 
+                            :category="$category"
                         />
                     </div>
                 </div>                
             </div>
         </div>
     </div>
+
 </x-app-layout>

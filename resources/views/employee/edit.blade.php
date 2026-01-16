@@ -11,7 +11,12 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <nav class="flex gap-3">
                         <div class="p-6 text-gray-900">
-                            <a class="p-3 rounded-lg bg-indigo-500 text-white shadow-xl cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105" href="{{ route('posts.index') }}">Regresar</a>
+                            @can('admin')
+                                <a class="p-3 rounded-lg bg-indigo-500 text-white shadow-xl cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105" href="{{ route('dashboard.admin') }}">Regresar</a>
+                            @endcan
+                            @can('autor')
+                                
+                            @endcan 
                         </div>
                     </nav>
                     @livewire('mostrar-alerta')
