@@ -47,7 +47,7 @@ class NuevoEmpleado extends Component
         session()->flash('mensaje', 'Autor Creado Correctamente');
 
         //Redireccionar al usuario
-        return redirect()->route('employees.index');
+        return redirect()->route('dashboard.admin');
     }
 
     public function render()

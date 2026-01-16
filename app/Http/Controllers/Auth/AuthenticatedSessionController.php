@@ -30,9 +30,9 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if (Gate::allows('admin')) {
-            return redirect()->intended(route('dashboard', false));
+            return redirect()->intended(route('dashboard.admin', false));
         }elseif(Gate::allows('autor')){
-            return redirect()->intended(route('posts.index', false));
+            return redirect()->intended(route('dashboard.autor', false));
         }
 
         return redirect()->intended(route('index'));

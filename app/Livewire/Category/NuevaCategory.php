@@ -33,7 +33,7 @@ class NuevaCategory extends Component
         session()->flash('mensaje', 'Categoria Creada Correctamente');
 
         //Redireccionar al usuario
-        return redirect()->route('category.index');
+        return redirect()->route('dashboard.admin');
     }
 
     public function render()

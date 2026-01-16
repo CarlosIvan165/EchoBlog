@@ -48,7 +48,7 @@ class NewPost extends Component
         session()->flash('mensaje', 'El Post se publico correctamente');
 
         //Redireccionar al usuario
-        return redirect()->route('posts.index');
+        return redirect()->route('dashboard.admin');
     }
 
     public function render()

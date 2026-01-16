@@ -9,10 +9,12 @@ use Livewire\Component;
 class PostsDestacados extends Component
 {
     public User $user;
+    public string $layout = 'vertical';
 
-    public function mount(User $user)
+    public function mount(User $user, $layout = 'vertical')
     {
         $this->user = $user;
+        $this->layout = $layout;
     }
     
     public function render()
@@ -24,7 +26,7 @@ class PostsDestacados extends Component
                 ->orderByDesc('likes_count')
                 ->orderBy('created_at', 'desc')
                 ->latest()
-                ->take(2)
+                ->take(3)
                 ->get(),
         ]);
     }

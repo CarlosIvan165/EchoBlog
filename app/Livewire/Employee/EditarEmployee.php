@@ -32,7 +32,7 @@ class EditarEmployee extends Component
         $user->save();
 
         session()->flash('mensaje', 'El Autor Se Modifico Correctamente');
-        return redirect()->route('employees.index');
+        return redirect()->route('dashboard.admin');
     }
 
     public function render()

@@ -60,7 +60,7 @@ class EditarPost extends Component
 
         // Redireccionar
         session()->flash('mensaje', 'El Post Se Modifico Correctamente');
-        return redirect()->route('posts.index');
+        return redirect()->route('dashboard.admin');
     }
 
     public function render()
