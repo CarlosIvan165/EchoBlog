@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\like;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -42,7 +43,7 @@ class Post extends Model
     }
 
     public function likes(){
-        return $this->hasMany(Like::class);
+        return $this->hasMany(like::class);
     }
 
     public function comentarios(){
