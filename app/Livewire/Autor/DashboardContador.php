@@ -19,6 +19,10 @@ class DashboardContador extends Component
             'draft' => Post::where('user_id', auth()->id())
                 ->where('status', 0)
                 ->count(),
+            'likes' => Post::where('user_id', auth()->id())
+                ->withCount('likes')
+                ->get()
+                ->sum('likes_count'),
         ]);
     }
 }

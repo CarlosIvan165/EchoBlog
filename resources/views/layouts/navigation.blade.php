@@ -37,6 +37,12 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden lg:flex sm:items-center sm:ms-6">
+                <button @click="open = !open; "
+                        class="relative px-3 py-2 text-gray-700 hover:text-indigo-600 focus:outline-none">
+                    🔔
+                        <span class="absolute top-0 right-1 inline-flex items-center justify-center px-2 py-2 text-xs font-bold text-white bg-red-600 rounded-full">
+                        </span>
+                </button>
                 @guest
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 lg:flex">
                         <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
@@ -61,7 +67,6 @@
                                         </svg>
                                     </div>
                                 </button>
-                            
                             
                         </x-slot>
 
@@ -90,6 +95,12 @@
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center lg:hidden">
+                <button @click="open = !open; "
+                        class="relative px-3 py-2 text-gray-700 hover:text-indigo-600 focus:outline-none">
+                    🔔
+                        <span class="absolute top-0 right-1 inline-flex items-center justify-center px-2 py-2 text-xs font-bold text-white bg-red-600 rounded-full">
+                        </span>
+                </button>
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />

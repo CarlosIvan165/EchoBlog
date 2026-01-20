@@ -16,8 +16,10 @@
                 <h2 class="font-semibold text-lg mb-4">Accesos rápidos</h2>
                 <div class="flex lg:flex-col gap-3">
                     @livewire('post.new-post')
-                    @livewire('category.nueva-category')
-                    @livewire('employee.nuevo-empleado')
+                    @can('admin')
+                        @livewire('category.nueva-category')
+                        @livewire('employee.nuevo-empleado')
+                    @endcan
                 </div>
             </div>
 

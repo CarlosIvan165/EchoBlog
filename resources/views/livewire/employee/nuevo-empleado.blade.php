@@ -4,65 +4,121 @@
     </button>
 
     @if ($open)
-        <div class="fixed inset-0 bg-black/75 flex items-center justify-center z-50">
-            <div class="bg-white p-4 rounded shadow-lg max-w-2xl w-full">
-                <div class="">
-                    <button wire:click="closeModal" class=" text-black rounded">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        <!-- OVERLAY -->
+        <div class="fixed inset-0 bg-black/60 flex items-center justify-center z-50" wire:click.self="closeModal">
+
+            <!-- MODAL -->
+            <div class="bg-white rounded-xl shadow-xl w-full max-w-lg mx-4
+                        flex flex-col max-h-[90vh] overflow-hidden">
+
+                <!-- HEADER -->
+                <div class="flex items-center justify-between px-6 py-4 border-b">
+                    <h2 class="text-xl font-semibold text-gray-800">
+                        Crear nuevo autor
+                    </h2>
+
+                    <button wire:click="closeModal"
+                        class="text-gray-500 hover:text-gray-700 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-                </div> 
-                <h2 class="text-xl font-semibold mb-4">Crea Un Nuevo Autor</h2>
-                <form action="" class="space-y-5" wire:submit.prevent='createAutor' novalidate>
-                    @csrf
+                </div>
 
-                    <!-- Name -->
-                    <div>
-                        <x-input-label for="name" :value="__('Nombre')" />
-                        <input type="text" wire:model="name" placeholder="Nombre" class="border p-3 w-full rounded-lg @error('email') border-red-500 @enderror" value="{{ old('email') }}">
-                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                    </div>
+                <!-- BODY -->
+                <div class="p-6 overflow-y-auto">
 
-                    <div>
-                        <x-input-label for="username" value="Nombre de usuario" />
-                        <x-text-input
-                            id="username"
-                            name="username"
-                            type="text"
-                            class="mt-1 block w-full"
-                            required
-                            autofocus 
-                            autocomplete="name"
-                        />
-                        <x-input-error class="mt-2" :messages="$errors->get('username')" />
-                    </div>
+                    <form wire:submit.prevent="createAutor" class="space-y-5" novalidate>
 
-                    <!-- Email Address -->
-                    <div class="mt-4">
-                        <x-input-label for="email" :value="__('Email')" />
-                        <input type="text" wire:model="email" placeholder="Correo Electronico" class="border p-3 w-full rounded-lg @error('email') border-red-500 @enderror" value="{{ old('email') }}">
-                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                    </div>
+                        <!-- NAME -->
+                        <div>
+                            <x-input-label for="name" value="Nombre" />
+                            <input
+                                wire:model.defer="name"
+                                id="name"
+                                type="text"
+                                placeholder="Nombre completo"
+                                class="mt-1 block w-full rounded-md border-gray-300
+                                    focus:border-indigo-500 focus:ring-indigo-500 shadow-sm" />
+                            <x-input-error :messages="$errors->get('name')" />
+                        </div>
 
-                    <!-- Password -->
-                    <div class="mt-4">
-                        <x-input-label for="password" :value="__('Contraseña')" />
-                        <input type="password" wire:model="password" placeholder="Contraseña" class="border p-3 w-full rounded-lg @error('email') border-red-500 @enderror" value="{{ old('email') }}">
-                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                    </div>
+                        <!-- USERNAME -->
+                        <div>
+                            <x-input-label for="username" value="Nombre de usuario" />
+                            <input
+                                wire:model.defer="username"
+                                id="username"
+                                type="text"
+                                placeholder="usuario123"
+                                class="mt-1 block w-full rounded-md border-gray-300
+                                    focus:border-indigo-500 focus:ring-indigo-500 shadow-sm" />
+                            <x-input-error :messages="$errors->get('username')" />
+                        </div>
 
-                    <div class="mt-4">
-                        <x-input-label for="password_confirmation" :value="__('Confirmar Contraseña')" />
-                        <input type="password" wire:model="password_confirmation" placeholder="Confirmar Contraseña" class="border p-3 w-full rounded-lg @error('email') border-red-500 @enderror" value="{{ old('email') }}">
-                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                    </div>
+                        <!-- EMAIL -->
+                        <div>
+                            <x-input-label for="email" value="Correo electrónico" />
+                            <input
+                                wire:model.defer="email"
+                                id="email"
+                                type="email"
+                                placeholder="correo@ejemplo.com"
+                                class="mt-1 block w-full rounded-md border-gray-300
+                                    focus:border-indigo-500 focus:ring-indigo-500 shadow-sm" />
+                            <x-input-error :messages="$errors->get('email')" />
+                        </div>
 
-                    <x-primary-button>
-                        Crear Autor
-                    </x-primary-button>
-                </form>
+                        <!-- PASSWORD -->
+                        <div>
+                            <x-input-label for="password" value="Contraseña" />
+                            <input
+                                wire:model.defer="password"
+                                id="password"
+                                type="password"
+                                placeholder="********"
+                                class="mt-1 block w-full rounded-md border-gray-300
+                                    focus:border-indigo-500 focus:ring-indigo-500 shadow-sm" />
+                            <x-input-error :messages="$errors->get('password')" />
+                        </div>
+
+                        <!-- CONFIRM PASSWORD -->
+                        <div>
+                            <x-input-label for="password_confirmation" value="Confirmar contraseña" />
+                            <input
+                                wire:model.defer="password_confirmation"
+                                id="password_confirmation"
+                                type="password"
+                                placeholder="********"
+                                class="mt-1 block w-full rounded-md border-gray-300
+                                    focus:border-indigo-500 focus:ring-indigo-500 shadow-sm" />
+                            <x-input-error :messages="$errors->get('password_confirmation')" />
+                        </div>
+
+                        <!-- FOOTER -->
+                        <div class="flex justify-end gap-3 pt-4 border-t">
+                            <button
+                                type="button"
+                                wire:click="closeModal"
+                                class="px-4 py-2 rounded-md border text-gray-700
+                                    hover:bg-gray-100 transition">
+                                Cancelar
+                            </button>
+
+                            <x-primary-button>
+                                Crear autor
+                            </x-primary-button>
+                        </div>
+
+                    </form>
+                </div>
+
             </div>
         </div>
+
     @endif 
 </div>

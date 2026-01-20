@@ -24,6 +24,7 @@ class ComentarioController extends Controller
 
         //imprimir un mensaje
         session()->flash('mensaje', 'Tu Comentario Se Agrego Correctamente');
+        
         return back();
     }
 }

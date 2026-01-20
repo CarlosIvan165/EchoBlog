@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Notifications\NuevoLike;
 use Livewire\Component;
 
 class LikePost extends Component

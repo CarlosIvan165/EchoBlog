@@ -10,5 +10,15 @@
             <p class="text-2xl font-bold">{{$public}}</p>
         </div>
 
+        <div class="bg-white rounded-lg shadow p-5">
+            <p class="text-sm text-gray-500">Borrador</p>
+            <p class="text-2xl font-bold">{{$draft}}</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-5">
+            <p class="text-sm text-gray-500">Likes</p>
+            <p class="text-2xl font-bold">{{$likes}}</p>
+        </div>
+
     </div>
 </div>
