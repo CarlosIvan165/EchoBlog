@@ -1,5 +1,5 @@
-@if ($post)
-    <div class="justify-center mx-5">
+<div class="justify-center mx-5">
+    @if ($post)
         <div>
             <a class="cursor-pointer" href="{{ route('posts.show', $post->id) }}">
                 <img class="w-full h-full object-cover" src="{{ asset('storage/post/'. $post->imagen)}}" alt="{{'imagen cavantes'. $post->titulo}}">
@@ -21,8 +21,7 @@
                 
             </div>
         </div>
-    </div>
-@else
-    <p class="text-center text-gray-500">No hay posts destacados</p>
-@endif
-
+    @else
+        <p class="text-center text-gray-500">No hay posts destacados</p>
+    @endif
+</div>
