@@ -66,7 +66,13 @@
 
             <div class="grid grid-cols-1 xl:grid-cols-[2fr_1fr]">
                 <div class="">
-                    <p class="whitespace-pre-wrap text-gray-700 leading-7 text-[17px]">{{ $post->descripcion }}</p>
+                    <p class="whitespace-pre-wrap text-gray-700 leading-7 text-[17px]">
+                        {!! preg_replace(
+                            '/(https?:\/\/[^\s]+)/',
+                            '<a href="$1" target="_blank" class="text-blue-500 underline">$1</a>',
+                            e($post->descripcion)
+                        ) !!}
+                    </p>
                 </div>
                 <div class="p-5">
                     <div class="border-gray-400 hidden xl:block">
