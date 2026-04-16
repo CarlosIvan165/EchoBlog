@@ -7,8 +7,15 @@
         <p class="text-gray-600 line-clamp-2 mt-1">{{ $post->descripcion }}</p>
         <div class="flex justify-between">
             <div class="text-md my-3">
-                <a href="{{ route('perfil.index', $post->user) }}"> <strong>Autor:</strong> {{ $post->user->name }}</a>
-                <p class="text-gray-600">{{ $post->created_at->diffForHumans() }}</p>
+                @if($post->user)
+                    <a href="{{ route('perfil.index', $post->user->id) }}">
+                        <strong>Autor:</strong> {{ $post->user->name }}
+                        <p class="text-gray-600">{{ $post->created_at->diffForHumans() }}</p>
+                    </a>
+                @else
+                    <p><strong>Autor:</strong> Sin autor</p>
+                @endif
+                
             </div>
     
            <div class="flex my-3">
