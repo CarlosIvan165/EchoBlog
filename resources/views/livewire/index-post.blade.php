@@ -1,4 +1,4 @@
-<div class="justify-center">
+<div class="justify-center mx-5">
     <nav class="flex flex-col gap-3 my-5">
         <h1 class="font-bold text-2xl">Categorias</h1>
         <div class="flex px-2 gap-3 text-gray-900 flex-wrap">

@@ -137,12 +137,12 @@
                             </div>
 
                             <div x-show="tab === 'about'">
-                                <div class="grid grid-cols-3">
-                                    <div class="col-span-2">
+                                <div class="grid grid-cols-2">
+                                    <div>
                                         <p>hola 2</p>
                                     </div>
                                     <div>
-                                        @livewire('index.autores-destacados')
+                                        
                                     </div>
                                 </div>
                             </div>

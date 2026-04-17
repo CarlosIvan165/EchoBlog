@@ -30,7 +30,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 
     <script>
-        document.addEventListener('livewire:initialized', () => { 
+        document.addEventListener('livewire:init', () => { 
             Livewire.on('mostrarAlerta2', (postId) => {
                 Swal.fire({
                         title: 'Quieres eliminar este post?',

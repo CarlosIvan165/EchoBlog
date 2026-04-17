@@ -8,7 +8,7 @@
             </div>
             <div class="flex flex-col md:flex-row items-stretch gap-3 mt-3 md:mt-0">
                 <a href="{{ route('employees.edit', $user->id)}}" class="bg-blue-800 py-2 px-4 rounded-lg text-white text-xs font-bold text-center cursor-pointer">Editar</a>
-                <button wire:click="$dispatch('mostrarAlerta', {{ $user->id }})" class="bg-red-600 py-2 px-4 rounded-lg text-white text-xs font-bold text-center">Eliminar</button>
+                <button wire:click="$dispatch('mostrarAlerta3', {{ $user->id }})" class="bg-red-600 py-2 px-4 rounded-lg text-white text-xs font-bold text-center">Eliminar</button>
             </div>
         </div>
         @empty
@@ -22,8 +22,8 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 
     <script>
-        document.addEventListener('livewire:initialized', () => { 
-            Livewire.on('mostrarAlerta', (userId) => {
+        document.addEventListener('livewire:init', () => { 
+            Livewire.on('mostrarAlerta3', (userId) => {
                 Swal.fire({
                         title: 'Quieres Eliminar a Este Autor?',
                         text: "EL Autor Se Eliminara y No Podra Recuperarse",

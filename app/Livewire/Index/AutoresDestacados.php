@@ -7,13 +7,6 @@ use Livewire\Component;
 
 class AutoresDestacados extends Component
 {
-
-    public string $layout = 'vertical';
-
-    public function mount($layout = 'vertical'){
-        $this->layout = $layout;    
-    }
-
     public function render()
     {
         return view('livewire.index.autores-destacados', [

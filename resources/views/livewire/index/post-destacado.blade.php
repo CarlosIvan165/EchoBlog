@@ -12,13 +12,12 @@
                     <p class="text-gray-600">{{ $post->created_at->diffForHumans() }}</p>
                 </div>
         
-            <div class="flex my-3">
+                <div class="flex my-3">
                     @auth
                         <livewire:like-post :post="$post" />
                         <livewire:comentario-post :post="$post" />
                     @endauth 
-            </div>
-                
+                </div>
             </div>
         </div>
     @else

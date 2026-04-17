@@ -21,7 +21,6 @@ class MostrarEmployee extends Component
         return view('livewire.employee.mostrar-employee', [
             'users' => User::whereIn('role', [
                     User::ROLE_AUTORES,
-                    User::ROLE_ADMIN
                 ])
                 ->orderBy('created_at', 'desc')
                 ->paginate(10),

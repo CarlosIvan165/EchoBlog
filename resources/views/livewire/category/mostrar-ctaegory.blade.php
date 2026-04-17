@@ -22,7 +22,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 
     <script>
-        document.addEventListener('livewire:initialized', () => { 
+        document.addEventListener('livewire:init', () => { 
             Livewire.on('mostrarAlerta', (categoryId) => {
                 Swal.fire({
                         title: 'Quieres Eliminar Esta Categoria?',
@@ -38,7 +38,7 @@
                         Livewire.dispatch('eliminarCategory', {category: categoryId})
                         Swal.fire(
                         'Eliminado',
-                        'Esta Ctegoria Se Elimino Correctamente.',
+                        'Esta Categoria Se Elimino Correctamente.',
                         'success'
                         )
                     }

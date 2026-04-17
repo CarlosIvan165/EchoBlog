@@ -3,17 +3,10 @@
 namespace App\Livewire\Index;
 
 use App\Models\Post;
-use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 class PostDestacados extends Component
 {
-    public string $layout = 'vertical';
-
-    public function mount($layout = 'vertical'){
-        $this->layout = $layout;
-    }
-
     public function render()
     {
         $query = Post::where('status', 1)

@@ -19,7 +19,7 @@
                             </div>
 
                             <!-- Texto -->
-                            <div class="flex-1">
+                            <div class="flex-1 min-w-0">
                                 <p class="text-sm font-semibold leading-snug line-clamp-2 group-hover:underline">
                                     {{ $post->titulo }}
                                 </p>
